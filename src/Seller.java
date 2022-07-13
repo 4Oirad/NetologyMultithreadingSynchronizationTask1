@@ -1,7 +1,7 @@
 public class Seller {
 
-    final static int SEARCH_CAR = 1000;
-    final static int CAR_ACCEPTANCE = 2000;
+    private final static int SEARCH_CAR = 1000;
+    private final static int CAR_ACCEPTANCE = 2000;
 
     private CarDealership carDealership;
 
@@ -25,12 +25,16 @@ public class Seller {
         return carDealership.getCars().remove(0);
     }
 
-    public synchronized void receiveCar() {
+    public void receiveCar() {
         try {
-            Thread.sleep(CAR_ACCEPTANCE);
-            carDealership.getCars().add(new Car());
-            System.out.println("Производитель Toyota выпустил 1 авто");
-            notify();
+            for (int i = 0; i < 10; i++) {
+                Thread.sleep(CAR_ACCEPTANCE);
+                synchronized (this) {
+                    carDealership.getCars().add(new Car());
+                    System.out.println("Производитель Toyota выпустил 1 авто");
+                    notify();
+                }
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

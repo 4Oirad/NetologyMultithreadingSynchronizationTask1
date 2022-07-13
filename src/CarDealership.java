@@ -3,8 +3,8 @@ import java.util.List;
 
 public class CarDealership {
 
-    Seller seller = new Seller(this);
-    List<Car> cars = new ArrayList<>(10);
+    private Seller seller = new Seller(this);
+    private List<Car> cars = new ArrayList<>(10);
 
     public Car sellCar() {
         return seller.sellCar();
